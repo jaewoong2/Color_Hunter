@@ -1,9 +1,15 @@
 import React from 'react'
 
-type AsideProps = {}
+type AsideProps = {} & React.HtmlHTMLAttributes<HTMLDivElement>
 
-const Aside: React.FC<AsideProps> = ({}) => {
-  return <div>Aside</div>
-}
+const Aside = React.forwardRef<HTMLDivElement, AsideProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <aside ref={ref} {...props}>
+        {children}
+      </aside>
+    )
+  }
+)
 
 export default Aside

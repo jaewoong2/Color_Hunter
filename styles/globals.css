@@ -8,3 +8,9 @@ body,
   width: 100%;
   height: 100%;
 }
+
+@layer components {
+  .aside-li {
+    @apply w-full cursor-pointer transition-colors hover:text-blue-300;
+  }
+}

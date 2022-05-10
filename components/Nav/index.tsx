@@ -2,21 +2,27 @@ import React from 'react'
 import Button from '../Button'
 import Search from '../Search'
 
-type NavProps = {}
+type NavProps = {
+  title?: string
+}
 
-const Nav: React.FC<NavProps> = ({}) => {
+const GAP = 6
+
+const Nav: React.FC<NavProps> = ({ title = 'Color Hunter😋' }) => {
   return (
-    <nav className="flex w-full justify-center">
-      <div className="flex w-full max-w-6xl items-center justify-center gap-6 py-4">
-        <div className="pl-6 font-mono font-bold md:text-xl">
-          Color Hunter😋
-        </div>
-        <Search />
-        <div className="font-mono font-bold md:text-xl">
-          <Button />
-        </div>
-        <div className="pr-6 font-mono md:text-xl">•••</div>
-      </div>
+    <nav className="flex w-full justify-center border-b">
+      <section
+        className={`flex w-full max-w-7xl items-center justify-center gap-${GAP} py-2`}
+      >
+        <h2 className={`pl-${GAP} font-mono font-bold md:text-xl`}>{title}</h2>
+        <form className="w-full max-w-screen-md">
+          <Search />
+        </form>
+        <form className="w-full max-w-[150px] font-mono text-sm font-bold ">
+          <Button>Add To Chrome</Button>
+        </form>
+        <div className={`pr-${GAP} font-mono md:text-xl`}>•••</div>
+      </section>
     </nav>
   )
 }
