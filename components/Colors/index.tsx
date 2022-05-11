@@ -12,6 +12,7 @@ const Colors: React.FC<ColorsProps> = ({ colors }) => {
       <div className="mb-14 rounded-t-xl rounded-b-xl shadow-lg">
         {colors?.map((color, index) => (
           <div
+            key={color}
             className={`w-full first:rounded-t-xl last:rounded-b-xl`}
             style={{
               backgroundColor: `${color}`,
@@ -24,6 +25,7 @@ const Colors: React.FC<ColorsProps> = ({ colors }) => {
         <div className="flex w-full items-center justify-around py-5">
           {colors?.map((color) => (
             <div
+              key={color}
               className=" h-8 w-8 cursor-pointer rounded-full font-mono font-light text-gray-500 shadow-sm"
               style={{ backgroundColor: `${color}` }}
             />
@@ -33,6 +35,7 @@ const Colors: React.FC<ColorsProps> = ({ colors }) => {
         <div className="flex w-full items-center justify-around py-5">
           {colors?.map((color) => (
             <Text
+              key={color}
               size="lg"
               className="cursor-pointer select-text font-mono font-light text-gray-500"
               icon={''}
@@ -46,6 +49,7 @@ const Colors: React.FC<ColorsProps> = ({ colors }) => {
         <div className="flex w-full select-text items-center justify-around py-5">
           {colors?.map((color) => (
             <Text
+              key={color}
               size="sm"
               className="cursor-pointer font-mono font-light text-gray-500"
               icon={''}

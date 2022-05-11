@@ -6,11 +6,15 @@ type ListProps = {
 
 const List: React.FC<ListProps> = ({ listItems, ...props }) => {
   return (
-    <ul {...props}>
-      {listItems.map((item) => (
-        <ListItem className="aside-li">{item}</ListItem>
-      ))}
-    </ul>
+    <>
+      <ul {...props}>
+        {listItems.map((item, index) => (
+          <ListItem key={'list-' + index} className="aside-li">
+            {item}
+          </ListItem>
+        ))}
+      </ul>
+    </>
   )
 }
 
