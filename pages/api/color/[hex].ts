@@ -20,7 +20,7 @@ export default (req: NextApiRequest, res: NextApiResponse<ColorsData | Error>): 
     const { query: { hex } } = req;
     const { r, g, b } = getColors(hex as string);
     const colors = new Array(4).fill('').map(() => {
-        const color: string = '#' + getRandomHex(r, 45) + getRandomHex(g, 45) + getRandomHex(b, 45)
+        const color: string = '#' + getRandomHex(r, 21) + getRandomHex(g, 21) + getRandomHex(b, 21)
         return color
     })
 

@@ -1,7 +1,14 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
-import { DefaultOptions, QueryClient, QueryClientProvider } from 'react-query'
+import {
+  DefaultOptions,
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query'
+import { useState } from 'react'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 const defaultOptions: DefaultOptions = {
   queries: {
@@ -9,12 +16,16 @@ const defaultOptions: DefaultOptions = {
   },
 }
 
-const reactQueryClient = new QueryClient({ defaultOptions })
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient({ defaultOptions }))
+
   return (
     <Layout>
-      <QueryClientProvider client={reactQueryClient}>
-        <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+          <ReactQueryDevtools />
+        </Hydrate>
       </QueryClientProvider>
     </Layout>
   )
