@@ -93,5 +93,73 @@
 
 ### useQuery
 
+```ts
+  useQuery: copy code to clipboard
+  export function useQuery<
+    TQueryFnData = unknown,
+    TError = unknown,
+    TData = TQueryFnData,
+    TQueryKey extends QueryKey = QueryKey
+  >
+
+
+  // example)
+  const {} = useQuery<DataType, ErrorType, DataType, QueryKeyType>(
+    'key',
+    fetchFunction,
+    { ...options }
+  )
+```
+
 - query를 fetch 시킬 때, 하는 Method
--
+
+- `QueryKey` 에 따라서 데이터 캐시를 관리한다.
+
+  - `QueryKey`는 `string`, `array` type을 갖는다
+
+- `QueryFunction`: `useQuery` 의 두번째 인자로, Promise를 반환하는 함수를 넣어주어야함 (- `fetch`, `axios` 사용)
+
+- `Query Options`
+
+  - `enabled`: `(false)- 쿼리 비활성화 (true)- 쿼리 활성화`
+
+    - 데이터 요청에 따라 파라미터가 유효한 값일 때만 true 할당 하는 식으로 사용
+
+  - `cacheTime`: 캐시데이터가 메모리에 유지 되는 시간
+
+  - `staleTime`: 데이터가 `fresh` 에서 `stale`로 전환 되는데 걸리는 시간
+
+  - `onSuccess`: 쿼리 함수가 성공적으로 데이터를 가져왔을때
+
+  - `onError`: 쿼리 함수에서 오류가 났을 때,
+
+  - `onSettled`: 쿼리 함수가 실행 되고 마지막으로 실행
+
+  - `refetch~`: ~ 에 따른 refetch 여부
+
+### QueryClient
+
+```ts
+// example
+const queryClient = new QueryClient()
+
+await queryClinet
+  .fetchQuery<Data, Error>('data', () => fetchData(data))
+  .then((res) => res)
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery('data', () => fetchData(data))
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+}
+```
+
+- 수동으로 데이터를 받아오거나, mutation 에서 사용, SSR/ SSG를 위해서 사용 된다.
+
+- Next JS의 `getServerSideProps` 나 `getStaticProps` 를 사용 하여 react-query의 `prefetch`를 이용하면 해당 쿼리 키에 해당하는 캐시에 쿼리 결과를 미리 넣어 가져올 수 있다.
